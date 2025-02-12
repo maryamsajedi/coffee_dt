@@ -1,0 +1,26 @@
+[project]
+name = "coffee_dt"
+version = "0.1.0"
+description = "Toy examples for coffee capacity modeling"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "dt-model",
+]
+license = "Apache-2.0"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["black>=24.10.0"]
+
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.uv.sources]
+dt-model = { git = "https://github.com/tn-aixpa/dt-model", rev = "development" }
