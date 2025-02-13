@@ -16,29 +16,38 @@ drink_customers = PresenceVariable(
 food_customers = PresenceVariable(
     'food_customers',
     cvs= [],
-)
+) 
 
 # Capacity Index can be defined as a 
-seat_capacity = Index('seat_capacity', 50)
-food_capacity = Index('food_capacity', 100)
+seat_capacity = Index('seat_capacity', 50) # There are 50 seats available in the bar
+service_capacity = Index('service_capacity', 150) # 150 customers can be served in the bar during the day
 
-# NOTE: We are going to change the usage factors to 0.5 for both drink and food customers
-U_drink_customers = Index('drink service usage factor', 0.3)
-U_food_customers = Index('food service usage factor', 0.7)
+U_drink_seat = Index('drink customers seat usage factor', 0.2) # Usage of drink customers from the seats available in the bar
+U_food_seat = Index('food customers seat usage factor', 0.7) # Usage of food customers from the seats available in the bar
+
+U_service_drink = Index('drink customers service usage factor', 0.5) # Usage of drink customers from the service
+U_service_food = Index('food customers service usage factor', 0.7) # Usage of food customers from the service
+
 
 # Constraints
-seat_constraint = Constraint(usage=drink_customers*U_drink_customers + food_customers*U_food_customers, capacity=seat_capacity)
-food_constraint = Constraint(usage=food_customers*U_food_customers, capacity=food_capacity)
+seat_constraint = Constraint(
+    usage=drink_customers * U_drink_seat + food_customers * U_food_seat,
+    capacity=seat_capacity
+)
 
+service_constraint = Constraint(
+    usage=food_customers*U_service_food  + drink_customers*U_service_drink,
+    capacity=service_capacity
+)
 
 # Define the model
 model = Model(
     'coffee_shop',
     cvs=[CV_weekday],
     pvs=[drink_customers, food_customers],
-    indexes=[seat_capacity, U_drink_customers, U_food_customers],
-    constraints=[seat_constraint, food_constraint],
-    capacities=[seat_capacity, food_capacity]
+    indexes=[seat_capacity, U_drink_seat, U_food_seat, U_service_drink, U_service_food, service_capacity],
+    constraints=[seat_constraint, service_constraint],
+    capacities=[seat_capacity, service_capacity]
 )   
 
 ensemble = Ensemble(model, {CV_weekday: days}, cv_ensemble_size=7)
