@@ -24,3 +24,6 @@ allow-direct-references = true
 
 [tool.uv.sources]
 dt-model = { git = "https://github.com/tn-aixpa/dt-model", rev = "development" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["coffee_dt"]
