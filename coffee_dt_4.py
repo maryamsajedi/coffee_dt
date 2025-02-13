@@ -19,14 +19,14 @@ food_customers = PresenceVariable(
 ) 
 
 # Capacity Index can be defined as a 
-seat_capacity = Index('seat_capacity', 50) # There are 50 seats available in the bar
-service_capacity = Index('service_capacity', 150) # 150 customers can be served in the bar during the day
+seat_capacity = Index('seat_capacity', 50) # There are 50 seats available in the bar        
+service_capacity = Index('service_capacity', 100) # 100 customers can be served in the bar during the day
 
 U_drink_seat = Index('drink customers seat usage factor', 0.2) # Usage of drink customers from the seats available in the bar
-U_food_seat = Index('food customers seat usage factor', 0.7) # Usage of food customers from the seats available in the bar
+U_food_seat = Index('food customers seat usage factor', 0.8) # Usage of food customers from the seats available in the bar
 
-U_service_drink = Index('drink customers service usage factor', 0.5) # Usage of drink customers from the service
-U_service_food = Index('food customers service usage factor', 0.7) # Usage of food customers from the service
+U_service_drink = Index('drink customers service usage factor', 0.4) # Usage of drink customers from the service
+U_service_food = Index('food customers service usage factor', 0.9) # Usage of food customers from the service
 
 
 # Constraints
